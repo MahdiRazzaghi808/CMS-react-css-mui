@@ -1,0 +1,113 @@
+.sidebar {
+    color: #fff;
+    width: 100%;
+}
+
+.logoWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 0;
+
+}
+
+.logoWrapper div:nth-child(1) {
+    width: 1.5rem;
+    display: flex;
+    justify-self: center;
+    align-items: center;
+    gap: 1.2rem;
+}
+
+.logoWrapper img {
+    width: 100%;
+}
+
+.title {
+    display: none;
+}
+
+.logoWrapper div:nth-child(2) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.line {
+    width: 100%;
+    height: 1px;
+    background-color: rgb(49, 58, 85);
+    border-radius: 2rem;
+    margin: 0 auto 1.5rem auto;
+}
+
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.menu li {
+    width: 100%;
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+}
+
+.menu a {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1.2rem;
+    color: #fff;
+    padding: 16px 16px;
+    border-top-right-radius: 2rem;
+    border-bottom-right-radius: 2rem;
+    transition: all 0.2s linear;
+    width: 100%;
+}
+
+@media (min-width:768px) {
+    .logoWrapper div:nth-child(1) {
+        transform: translateX(-16px);
+
+    }
+
+    .logoWrapper div:nth-child(2) {
+        display: none;
+    }
+
+    .menu span {
+        display: none;
+    }
+
+    .line {
+        width: 90%;
+    }
+
+    .menu a:hover:not(.active) {
+        background-color: #1e2533;
+    }
+
+    .menu .active {
+        width: 100%;
+        background-color: #293145;
+    }
+}
+
+
+@media (min-width:992px) {
+    .title {
+        display: flex;
+    }
+
+    .menu span {
+        display: flex;
+    }
+
+
+}

@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import { ThemeProvider } from "@mui/material"
+import { theme } from './mui/theme';
 
-function App() {
+import styles from "./app.module.css"
+
+import Sidebar from './components/sidebar/Sidebar';
+import Header from './components/header/Header';
+import Dashboard from "./components/dashboard/Dashboard"
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <ThemeProvider theme={theme}>
+
+
+      <div className="container">
+
+        <div className={styles.wrapper}>
+          <div className={styles.sidebar}>
+            <Sidebar />
+          </div>
+
+          <div className={styles.main}>
+            <Header />
+            <Dashboard />
+          </div>
+        </div>
+
+
+      </div>
+    </ThemeProvider>
+
+  )
 }
 
-export default App;
+export default App

@@ -1,0 +1,33 @@
+.wrapper {
+    color: #fff;
+    background-color: #313a55;
+    padding: 1rem 1.5rem;
+    border-radius: 0.5rem
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.header div {
+    padding: 0.1rem 0.3rem;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.85rem
+}
+
+.main p:nth-child(1) {
+    font-size: 1.75rem;
+    font-weight: bold;
+}
+
+.main p:nth-child(2) {
+    color: #718096;
+    font-weight: 100;
+    /* font-size: 0.8rem; */
+}
