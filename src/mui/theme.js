@@ -3,10 +3,10 @@ const selected = "dark";
 const theme = createTheme({
     palette: {
         mode: selected,
-        // common:{
-        //     black:'#232a3b',
-        //     white:'#fff'
-        // }
+        common:{
+            black:'#232a3b',
+            white:'#fff'
+        }
     },
     typography: {
         fontFamily: `"yekan","Roboto"`

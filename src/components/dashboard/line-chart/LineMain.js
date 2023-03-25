@@ -7,8 +7,9 @@ function LineMain() {
         <>
             <h3 style={{ color: "#fff", marginBottom: "2rem" }}>گزارش فروش</h3>
             <div className={styles.wrapper}>
-                <LineChart />
-
+                <div className={styles.chart}>
+                    <LineChart />
+                </div>
             </div>
         </>
 

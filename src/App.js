@@ -1,34 +1,52 @@
-import React from 'react'
+import React, { useContext } from 'react'
+// style
+import styles from "./app.module.css"
+// routes
+import { useRoutes } from 'react-router-dom';
+import { routes } from "./routes/routes"
+// component
+import Sidebar from './components/sidebar/Sidebar';
+import Header from './components/header/Header'
+
+// mui setting rtl
 import { ThemeProvider } from "@mui/material"
 import { theme } from './mui/theme';
+import rtlPlugin from 'stylis-plugin-rtl';
+import { prefixer } from 'stylis';
+import { CacheProvider } from '@emotion/react';
+import createCache from '@emotion/cache';
 
-import styles from "./app.module.css"
-
-import Sidebar from './components/sidebar/Sidebar';
-import Header from './components/header/Header';
-import Dashboard from "./components/dashboard/Dashboard"
+const cacheRtl = createCache({
+  key: 'muirtl',
+  stylisPlugins: [prefixer, rtlPlugin],
+});
 
 const App = () => {
+
+
+  const router = useRoutes(routes)
+
   return (
-    <ThemeProvider theme={theme}>
 
+    <CacheProvider value={cacheRtl}>
+      <ThemeProvider theme={theme}>
 
-      <div className="container">
-
-        <div className={styles.wrapper}>
-          <div className={styles.sidebar}>
-            <Sidebar />
-          </div>
-
-          <div className={styles.main}>
-            <Header />
-            <Dashboard />
+        <div className="container">
+          <div className={styles.wrapper}>
+            {/* sidebar */}
+            <div className={styles.sidebar}>
+              <Sidebar />
+            </div>
+            {/* main site  */}
+            <div className={styles.main}>
+              <Header />
+              {router}
+            </div>
           </div>
         </div>
 
-
-      </div>
-    </ThemeProvider>
+      </ThemeProvider>
+    </CacheProvider>
 
   )
 }

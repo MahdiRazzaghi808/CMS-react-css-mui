@@ -3,7 +3,9 @@ import styles from "./sidebar.module.css"
 import styled from 'styled-components';
 
 import logo from "../../asset/images/icon/logo.svg"
-
+// react router dom
+import { NavLink } from 'react-router-dom';
+// mui icon
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
 import ProductionQuantityLimitsIcon from '@mui/icons-material/ProductionQuantityLimits';
@@ -24,6 +26,13 @@ const Div = styled.div`
  `
 
 
+const sidebarMenu = [
+  { id: 1, to: '/', menuItem: 'داشبورد', icon: HomeIcon },
+  { id: 2, to: '/products', menuItem: 'محصولات', icon: ProductionQuantityLimitsIcon },
+  { id: 3, to: '/users', menuItem: 'کاربران', icon: GroupIcon },
+  { id: 4, to: '/p', menuItem: 'کامنت ها', icon: ModeCommentIcon },
+  { id: 5, to: '/l', menuItem: 'سفارشات', icon: ShoppingCartIcon },
+]
 
 const Sidebar = () => {
 
@@ -35,34 +44,44 @@ const Sidebar = () => {
     <div className={styles.sidebar}>
 
       <div >
-          <div className={styles.logoWrapper}>
+        <div className={styles.logoWrapper}>
 
-            <div>
-              <img src={logo} alt="logo" />
-              <span className={styles.title}>روبیک</span>
-            </div>
-
-            <div onClick={() => setOpen(prev => !prev)}>
-              <MenuIcon fontSize='large' />
-            </div>
+          <div>
+            <img src={logo} alt="logo" />
+            <span className={styles.title}>روبیک</span>
           </div>
-          <div className={styles.line}></div>
+
+          <div onClick={() => setOpen(prev => !prev)}>
+            <MenuIcon fontSize='large' />
+          </div>
+        </div>
+        <div className={styles.line}></div>
 
       </div>
 
 
+
       <Div open={open}>
         <ul className={styles.menu}>
-          <li><a href="" className={styles.active}><span>داشبورد</span> <HomeIcon /></a></li>
-          <li><a href="" ><span>محصولات</span> <ProductionQuantityLimitsIcon /></a></li>
-          <li><a href=""><span>کاربران</span> <GroupIcon /></a></li>
-          <li><a href=""><span>کامنت ها</span> <ModeCommentIcon /></a></li>
-          <li><a href=""><span>سفارشات</span>  <ShoppingCartIcon /></a></li>
+
+          {
+            sidebarMenu.map(item =>
+              <li key={item.id}>
+                <NavLink to={item.to} className={({ isActive }) => isActive ? styles.active : ""} onClick={() => setOpen(true)}>
+                  <span>{item.menuItem}</span> <item.icon />
+                </NavLink>
+              </li>
+
+            )
+          }
+
+
+
         </ul>
       </Div>
 
 
-     
+
     </div>
 
   )

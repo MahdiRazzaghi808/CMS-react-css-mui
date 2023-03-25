@@ -7,11 +7,13 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+
 }
 
 body {
-  font-family: "yekan";
+  font-family: "yekan", "Roboto";
   background-color: #232a3b;
+  position: relative;
 }
 
 
@@ -23,10 +25,36 @@ a {
   text-decoration: none;
 }
 
+body::-webkit-scrollbar {
+  width: 0.5rem;
+}
+
+body::-webkit-scrollbar-thumb {
+  background-color: #313a55;
+  border-radius: 1rem;
+
+}
+
+input {
+  border: none;
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  background-color: #313a55;
+
+}
+
+input:focus {
+  outline: none;
+}
+
 .container {
   padding: 0 12px;
 }
 
+
+.MuiFormLabel-root{
+  direction: 'rtl'!important;
+}
 
 @media (min-width:637px) {
   .container {

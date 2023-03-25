@@ -10,7 +10,7 @@ import Doughnut from "./doughnut-chart/DoughnutChart"
 function Dashboard() {
   return (
 
-    <div>
+    <div className={styles.wrapper}>
       <h3 style={{ color: "#fff" }}>گزارش کلی</h3>
       <ShowInformation />
 
@@ -19,10 +19,9 @@ function Dashboard() {
         <div className={styles.lineChart}>
           <LineMain />
         </div>
- 
         <div className={styles.pieChart}>
-            <PieMain  chart={PieChart}/>
-            <PieMain chart={Doughnut}/>
+          <PieMain chart={PieChart} />
+          <PieMain chart={Doughnut} />
         </div>
 
       </div>
