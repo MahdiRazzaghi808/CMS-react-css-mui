@@ -1,23 +1,57 @@
-import React from 'react'
+import React, { useState, useContext } from 'react'
 import styles from "./productAdd.module.css"
 
 import { TextField, Button, FormControlLabel, Switch } from '@mui/material';
+import { InputsContext } from '../../../context/InputsContextProvider';
+import SendBtn from '../../sendBtn/SendBtn';
 
+const initialInputState = {
+    title: '',
+    price: '',
+    count: '',
+    off: '',
+    priceAfterOff: '',
+    showOff: false,
+    explain: '',
+};
 
+function ProductAdd({ data }) {
+    // update or create product
+    let update = null;
+    (data.type === 'update') ? update = true : update = false;
+    // show data for product choose or show empty inputs for create product
+    let values = null;
+    update ? values = data.data : values = initialInputState;
+    // input state and change this
+    const [inputValues, setInputValues] = useState(values);
 
+    const [state, setState] = useContext(InputsContext)
 
+    if (state.products.data.id !== inputValues.id) {
+        setInputValues(values)
+    }
 
-function ProductAdd({ inputState }) {
-    const { inputValues, setInputValues } = inputState;
-
-
+    const showInputOff = (inputValues.off === '' || inputValues.off === 0 ? true : inputValues.off) && inputValues.showOff && inputValues.price
+    const showPriceAfterOff = (inputValues.priceAfterOff === '' || inputValues.priceAfterOff === 0 ? true : inputValues.priceAfterOff) && inputValues.showOff && inputValues.price
 
     const changeHandler = event => {
         const name = event.target.id
         const value = event.target.value;
+
         setInputValues(prev => ({
             ...prev, [name]: value
-        }))
+        })
+        )
+    }
+
+    const changeImageHandler = (event) => {
+        const file = event.target.files[0];
+        setInputValues(prev => ({
+            ...prev, image: file
+
+        })
+        )
+       
     }
 
 
@@ -48,9 +82,9 @@ function ProductAdd({ inputState }) {
                 </div>
 
                 <div>
-                    <Button variant="outlined" component="label" fullWidth sx={{ color: "#fff", padding: '1rem 2.5rem' }} >
+                    <Button variant="outlined" component="label" fullWidth sx={{  padding: '1rem 2.5rem' }} >
                         آپلود عکس
-                        <input hidden accept="image/*" type="file" />
+                        <input hidden accept="image/*" type="file" onChange={changeImageHandler} />
                     </Button>
                 </div>
 
@@ -78,8 +112,8 @@ function ProductAdd({ inputState }) {
                             type="number"
                             InputProps={{ inputProps: { min: 0 } }}
                             fullWidth
-                            disabled={(inputValues.off === '' || inputValues.off === 0 ? true : inputValues.off) && inputValues.showOff ? false : true}
-                            value={(inputValues.off === '' || inputValues.off === 0 ? true : inputValues.off) && inputValues.showOff ? inputValues.off : ''}
+                            disabled={showInputOff ? false : true}
+                            value={showInputOff ? inputValues.off : inputValues.off = ''}
                             onChange={event => {
                                 setInputValues(prev => ({ ...prev, priceAfterOff: event.target.value === '' ? '' : (100 - event.target.value) * inputValues.price / 100 }));
                                 setInputValues(prev => ({ ...prev, off: event.target.value }));
@@ -91,8 +125,8 @@ function ProductAdd({ inputState }) {
                             type="number"
                             InputProps={{ inputProps: { min: 0 } }}
                             fullWidth
-                            disabled={(inputValues.priceAfterOff === '' || inputValues.priceAfterOff === 0 ? true : inputValues.priceAfterOff) && inputValues.showOff ? false : true}
-                            value={(inputValues.priceAfterOff === '' || inputValues.priceAfterOff === 0 ? true : inputValues.priceAfterOff) && inputValues.showOff ? inputValues.priceAfterOff : ''}
+                            disabled={showPriceAfterOff ? false : true}
+                            value={showPriceAfterOff ? inputValues.priceAfterOff : inputValues.priceAfterOff = ''}
                             onChange={event => {
                                 setInputValues(prev => ({ ...prev, off: event.target.value === '' ? '' : event.target.value * 100 / inputValues.price }));
                                 setInputValues(prev => ({ ...prev, priceAfterOff: event.target.value }));
@@ -104,10 +138,10 @@ function ProductAdd({ inputState }) {
             </div>
 
 
+
+
             <div className={styles.sendBtn}>
-                <Button variant="contained" component="label" sx={{ color: "#fff", background: '#22c55e', "&:hover": { background: '#5cdb6a' } }}>
-                    {inputValues.add ? 'اضافه کردن محصول' : 'ویرایش محصول'}
-                </Button>
+                <SendBtn data={{ type: 'products', update, inputValues }} />
             </div>
         </>
     )

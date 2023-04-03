@@ -5,9 +5,9 @@
 .wrapper {
     width: 100%;
     padding: 1rem;
-    background-color: #313a55;
-    color: #fff;
     border-radius: 0.5rem;
+    color: var(--text-color);
+    background-color: var(--section-bg-color)
 }
 
 .details {

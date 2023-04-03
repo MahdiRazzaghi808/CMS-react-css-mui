@@ -1,14 +1,16 @@
 import React from 'react'
+// style
 import styles from "./PieMain.module.css"
 
 function PieMain(props) {
-    const { chart: Chart } = props
+    const { chart: Chart } = props;
+
     return (
         <div className={styles.main}>
-            <h3 style={{ color: "#fff", marginBottom: "2rem" }}>فروش بالای هفتگی</h3>
+
+            <h3>فروش بالای هفتگی</h3>
 
             <div className={styles.wrapper}>
-
                 <div>
                     <div className={styles.chart}>
                         <Chart />

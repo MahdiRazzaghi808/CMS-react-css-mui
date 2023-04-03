@@ -1,61 +1,64 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 // style
 import styles from './users.module.css'
 // component
+import HeaderComponent from '../header-component/HeaderComponent';
 import User from "./user/User"
-// mui component
-import { Pagination, PaginationItem, Button } from '@mui/material';
-// icons
-import SearchIcon from '@mui/icons-material/Search';
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 // context
-import { UserModalContext } from "../../context/ModalContextProvider"
+import { InputsContext } from "../../context/InputsContextProvider"
+import { GetDataContext } from '../../context/GetDataContextProvider'
 // modal
 import UserModal from "../modal/UserModal"
+import TablePagination from '../pagination/TablePagination';
+// 
+import { getData } from '../../api/getData';
 
 
 function Users() {
 
-    const [userModal, setUserModal] = useContext(UserModalContext)
+    const [state, setState] = useContext(GetDataContext);
+    const pageCount = Math.ceil(state.users.data.length / 15);
+
+    useEffect(() => {
+
+        if (!state.users.load) {
+            const ff = async () => {
+                const value = await getData('users')
+                setState(prev => ({ ...prev, users: { load: true, data: value } }))
+            }
+            ff()
+            console.log('update');
+        }
+
+    }, [])
+
+
+
+    const [userModal, setUserModal] = useContext(InputsContext)
 
     // page state and choose page
     const [page, setPage] = useState(1)
-    const changeHandler = (event, value) => {
-        setPage(value)
+
+    const clickHandler = () => {
+        setUserModal(prev => ({
+            ...prev, users: { type: 'new', data: {}, show: true }
+        }));
     }
 
     return (
+
         <div className={styles.wrapper}>
-            <h2>کاربران</h2>
-            <div className={styles.header}>
-                <Button variant="contained" size="large" sx={{ background: "#285fd3", color: "#fff" }} onClick={() => setUserModal({ show: true, type: 'new user' })}>کاربر جدید</Button>
 
-                <div className={styles.search}>
-                    <input type="text" placeholder="جستجو..." />
-                    <SearchIcon className={styles.iconSearch} />
-                </div>
-            </div>
+            <HeaderComponent data={{ title: 'لیست کاربران', btnClick: clickHandler }} />
 
-            <User pageActive={page} />
+            {state.users.data.length && <User pageActive={page} data={state.users.data} />}
 
-            <div style={{ display: "flex", justifyContent: "center", margin: "2rem 0", direction: "ltr" }}>
-                <Pagination count={3} onChange={changeHandler}
 
-                    renderItem={(item) => (
-                        <PaginationItem
-                            components={{
-                                next: ArrowBackIcon,
-                                previous: ArrowForwardIcon
-                            }}
-                            {...item}
-                        />
-                    )}
-                />
-            </div>
+            <TablePagination data={{ count: pageCount, setPage }} />
+
 
             {
-                userModal.show && <UserModal />
+                userModal.users.show && <UserModal />
             }
 
         </div>

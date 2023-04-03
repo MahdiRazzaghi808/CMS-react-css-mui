@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  Chart ,
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-} from 'chart.js';
+import { Chart, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, } from 'chart.js';
 import { Line } from 'react-chartjs-2';
 
 Chart.register(
@@ -20,7 +12,6 @@ Chart.register(
 );
 
 export const options = {
-
   responsive: true,
   interaction: {
     mode: 'index',
@@ -53,7 +44,7 @@ export const data = {
   datasets: [
     {
       label: 'فروش عادی',
-      data: [200,  150, 78, 420, 123, 150],
+      data: [200, 150, 78, 420, 123, 150],
       borderColor: 'rgb(255, 99, 132)',
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
       yAxisID: 'y',

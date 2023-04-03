@@ -9,21 +9,13 @@
 }
 
 .main {
-    background-color: #293145;
     width: 100%;
     overflow: hidden;
     border-radius: 2rem;
     padding: 1rem 2rem;
+    background-color: var(--app-bg-color);
 }
 
-.modal {
-    height: 100%;
-    width: 100%;
-    position: absolute;
-    top: 51%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-}
 
 @media (min-width: 768px) {
     .wrapper {

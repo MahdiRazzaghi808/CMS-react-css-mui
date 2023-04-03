@@ -1,5 +1,7 @@
 import React from 'react'
+// style
 import styles from "./showInformation.module.css"
+// component
 import DetailItem from "./detailItem/DetailItem"
 // icons
 import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';

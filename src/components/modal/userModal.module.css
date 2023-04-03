@@ -2,19 +2,20 @@
     height: 100%;
     width: 100%;
     position: absolute;
-    top: 51%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 200;
+    background-color: #99999949;
 }
 
 .userModal {
     width: 100%;
     padding: 1rem;
     border-radius: 0.5rem;
-    color: #fff;
-    background-color: #232a3b;
     position: relative;
+    background-color:var(--app-bg-color) ;
+    color:var(--text-color)
 
 }
 
@@ -62,20 +63,28 @@
 .boxWrapper {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
-    gap: 1.5rem;
+    gap: 2.5rem;
 
 }
 
-.inputWrapper {
+.inputDateWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem
+}
+
+
+.inputDate {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    width: 100%;
 }
 
-.inputWrapper input {
-    width: 100%;
-    color: #fff;
-    font-family: 'yekan', 'Roboto';
+.inputDate label {
+    width: 7rem
 }
 
 .sendButton {
@@ -85,11 +94,22 @@
     margin-top: 2.5rem
 }
 
+
+
+@media (min-width: 500px) {
+    .userModal {
+        width: 400px;
+        margin: 0 auto;
+        padding: 2rem;
+    }
+
+
+}
+
 @media (min-width: 678px) {
     .userModal {
         width: 500px;
-        margin: 0 auto;
-        padding: 2rem;
+
     }
 
 
@@ -103,5 +123,15 @@
 
     .boxWrapper {
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .inputDateWrapper {
+        align-items: flex-end;
+    }
+
+    .inputDate {
+        flex-direction: row;
+        gap: 0;
+        align-items: center;
     }
 }

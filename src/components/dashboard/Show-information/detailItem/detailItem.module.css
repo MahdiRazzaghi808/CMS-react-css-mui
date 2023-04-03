@@ -1,8 +1,8 @@
 .wrapper {
-    color: #fff;
-    background-color: #313a55;
     padding: 1rem 1.5rem;
-    border-radius: 0.5rem
+    border-radius: 0.5rem;
+    color: var(--text-color);
+    background-color: var(--section-bg-color)
 }
 
 .header {

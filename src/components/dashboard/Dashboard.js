@@ -1,25 +1,31 @@
 import React from 'react'
+// style
 import styles from "./dashboard.module.css"
+// components
 import ShowInformation from './Show-information/ShowInformation'
 import PieMain from "./pie-chart/PieMain"
 import LineMain from './line-chart/LineMain'
 
 import PieChart from "./pie-chart/PieChart"
-import Doughnut from "./doughnut-chart/DoughnutChart"
+import Doughnut from "./pie-chart/DoughnutChart"
 
 function Dashboard() {
   return (
 
     <div className={styles.wrapper}>
-      <h3 style={{ color: "#fff" }}>گزارش کلی</h3>
+      
+      {/* title */}
+      <h3>گزارش کلی</h3>
+      {/*4 item for information */}
       <ShowInformation />
-
+      {/* charts */}
       <div className={styles.chart}>
 
-        <div className={styles.lineChart}>
+        <div className={styles.lineMain}>
           <LineMain />
         </div>
-        <div className={styles.pieChart}>
+
+        <div className={styles.pieMain}>
           <PieMain chart={PieChart} />
           <PieMain chart={Doughnut} />
         </div>

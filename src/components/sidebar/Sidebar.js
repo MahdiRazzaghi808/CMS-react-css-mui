@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
+// style
 import styles from "./sidebar.module.css"
 import styled from 'styled-components';
-
+// logo
 import logo from "../../asset/images/icon/logo.svg"
 // react router dom
 import { NavLink } from 'react-router-dom';
@@ -30,20 +31,21 @@ const sidebarMenu = [
   { id: 1, to: '/', menuItem: 'داشبورد', icon: HomeIcon },
   { id: 2, to: '/products', menuItem: 'محصولات', icon: ProductionQuantityLimitsIcon },
   { id: 3, to: '/users', menuItem: 'کاربران', icon: GroupIcon },
-  { id: 4, to: '/p', menuItem: 'کامنت ها', icon: ModeCommentIcon },
-  { id: 5, to: '/l', menuItem: 'سفارشات', icon: ShoppingCartIcon },
+  { id: 4, to: '/comments', menuItem: 'کامنت ها', icon: ModeCommentIcon },
+  { id: 5, to: '/cart', menuItem: 'سفارشات', icon: ShoppingCartIcon },
 ]
 
 const Sidebar = () => {
-
-
+  // state for menu in mobile size
   const [open, setOpen] = useState(true)
 
   return (
 
     <div className={styles.sidebar}>
 
-      <div >
+      {/* header sidebar */}
+      <div>
+
         <div className={styles.logoWrapper}>
 
           <div>
@@ -58,9 +60,7 @@ const Sidebar = () => {
         <div className={styles.line}></div>
 
       </div>
-
-
-
+      {/* main sidebar */}
       <Div open={open}>
         <ul className={styles.menu}>
 
@@ -71,16 +71,11 @@ const Sidebar = () => {
                   <span>{item.menuItem}</span> <item.icon />
                 </NavLink>
               </li>
-
             )
           }
 
-
-
         </ul>
       </Div>
-
-
 
     </div>
 

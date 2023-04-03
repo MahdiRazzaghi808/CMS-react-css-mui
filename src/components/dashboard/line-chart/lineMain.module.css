@@ -1,33 +1,36 @@
 .wrapper {
     padding: 1rem;
-    background-color: #313a55;
     border-radius: 0.5rem;
     overflow-x: scroll;
+    color: var(--text-color);
+    background-color: var(--section-bg-color)
 }
+
+
 .wrapper::-webkit-scrollbar {
     width: 0.5rem;
-  }
-  
-  .wrapper::-webkit-scrollbar-thumb {
+}
+
+.wrapper::-webkit-scrollbar-thumb {
     background-color: #313a55;
     border-radius: 1rem;
-  
-  }
 
-.chart{
+}
+
+.chart {
     min-width: 500px;
-    min-height:auto;
+    min-height: auto;
 }
 
 @media (min-width: 520px) {
-    .wrapper{
+    .wrapper {
         overflow: auto;
     }
 }
 
 @media (min-width: 1200px) {
 
-    .chart{
-        margin:3rem 0 3.5rem 0
+    .chart {
+        margin: 3rem 0 3.5rem 0
     }
 }

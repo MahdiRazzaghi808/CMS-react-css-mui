@@ -10,10 +10,14 @@ import { Calendar } from "react-multi-date-picker"
 import persian from "react-date-object/calendars/persian"
 import persian_fa from "react-date-object/locales/persian_fa"
 // context
-import { UserModalContext } from "../../context/ModalContextProvider"
-// mui
+import { InputsContext } from "../../context/InputsContextProvider"
+// mui components
+import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
+// mui icons
 import CloseIcon from '@mui/icons-material/Close';
+// send Data
+import SendBtn from '../sendBtn/SendBtn';
 
 
 const initialINputValues = {
@@ -24,7 +28,8 @@ const initialINputValues = {
     password: "",
     number: "",
     email: "",
-    birthDay: ""
+    birthDay: "",
+    image: null
 }
 
 const inputLabel = [
@@ -39,35 +44,37 @@ const inputLabel = [
 
 export default function UserModal() {
     // context data
-    const [userModal, setUserModal] = useContext(UserModalContext);
-
+    const [userModal, setUserModal] = useContext(InputsContext);
     // update or create user
     let update = null;
-    (userModal.type === 'update') ? update = true : update = false;
+    (userModal.users.type === 'update') ? update = true : update = false;
 
     // show data for user choose or show empty inputs for create user
-    let inputValues = null;
-    update ? inputValues = userModal.data : inputValues = initialINputValues;
+    let values = null;
+    update ? values = userModal.users.data : values = initialINputValues;
+    
 
     // show date 
     const [showDate, setShowDate] = useState(false);
 
     // input state and change this
-    const [values, setValues] = useState(inputValues)
-    const handleInputChange = (event) => {
+    const [inputValues, setInputValues] = useState(values);
+
+    const handleInputChange = (event, data) => {
         let name = null;
         let value = null;
+
 
         if (event.year) {
             name = 'birthDay'
             value = `${event.year}/${event.month.number}/${event.day}`
             setShowDate(false)
         } else {
-            name = event.target.dataset.value
+            name = data
             value = event.target.value;
         }
 
-        setValues((prevState) => ({
+        setInputValues((prevState) => ({
             ...prevState,
             [name]: value,
         }));
@@ -75,48 +82,75 @@ export default function UserModal() {
 
     };
 
+
+
+
+
+    // const [getState, setGetState] = useContext(GetDataContext)
+
+    // const sendBtnHandler = async () => {
+    //     // const flag = await sendData('products', update, inputValues);
+    //     // setState(prev => ({
+    //     //     ...prev, products: { ...prev.products, show: false }
+    //     // }));
+    //     // if (flag) {
+    //     //     const value = await getData('products');
+    //     //     setGetState(prev => ({ ...prev, products: { load: true, data: value } }));
+    //     // }
+
+    // }
+
+    const changeImageHandler = (event) => {
+        const file = event.target.files[0];
+        setInputValues(prev => ({
+            ...prev, image: file
+
+        })
+        )
+
+    }
+
     return ReactDOM.createPortal(
         <div className={styles.userModalWrapper}>
             <div className={styles.userModal} >
                 {/* close button modal */}
-                <CloseIcon className={styles.closeIcon} color='error' onClick={() => setUserModal({ ...userModal, show: false })} />
-               
+                <CloseIcon className={styles.closeIcon} color='error' onClick={() => setUserModal(prev => ({ ...prev, users: { type: 'close', data: {}, show: false } }))} />
+
                 {/* title */}
                 <div className={styles.header}>
                     <h2>{(update) ? 'ویرایش کاربر' : 'کاربر جدید'}</h2>
                 </div>
-               
+
                 {/*avatar*/}
                 <div className={styles.avatar}>
                     <div className={styles.imageWrapper}>
                         <img src={update ? image : question} alt="avatar" />
                     </div>
-                    <Button variant="contained" component="label">
+                    <Button variant="contained" component="label" >
                         آپلود پروفایل
-                        <input hidden accept="image/*" type="file" />
+                        <input hidden accept="image/*" type="file" onChange={changeImageHandler} />
                     </Button>
                 </div>
-               
+
                 {/* input box */}
                 <div className={styles.boxWrapper}>
                     {
                         inputLabel.map(item =>
 
-                            <div className={styles.inputWrapper} key={item.data}>
-                                <label htmlFor={`${item.data}`}>{item.main}</label>
-                                <input type='text' id={`${item.data}`} onChange={handleInputChange} value={values[item.data]} data-value={item.data} />
-                            </div>
+                            <TextField fullWidth label={item.main} onChange={event => handleInputChange(event, item.data)} value={inputValues[item.data]} key={item.data} />
                         )
                     }
 
-                    <div className={styles.inputWrapper}>
-                        <label >تاریخ تولد</label>
-                        <Button onClick={() => setShowDate(true)} variant="contained" sx={{ color: "#fff", background: "#313a55" }}>{values.birthDay ? values.birthDay : 'انتخاب کنید'}</Button>
+                    <div className={styles.inputDateWrapper}>
+                        <div className={styles.inputDate}>
+                            <label >تاریخ تولد</label>
+                            <Button fullWidth onClick={() => setShowDate(true)} variant="contained" sx={{ color: "#fff", background: "var(--main-bg-color)" }}>{inputValues.birthDay ? inputValues.birthDay : 'انتخاب کنید'}</Button>
+                        </div>
                         <div style={{ display: showDate ? 'flex' : 'none', justifyContent: 'center' }}>
                             <Calendar
                                 calendar={persian}
                                 locale={persian_fa}
-                                value={values.birthDay}
+                                value={inputValues.birthDay}
                                 onChange={handleInputChange}
                             />
                         </div>
@@ -125,12 +159,12 @@ export default function UserModal() {
 
 
                 </div>
-               
+
                 {/* create or edit user */}
                 <div className={styles.sendButton}>
-                    <Button variant="contained" data-value='date' sx={{ color: "#fff", background: "#285fd3" }} >{update ? 'ويرايش كاربر' : 'ايجاد كاربر'}</Button>
+                    <SendBtn data={{ type: 'users', update, inputValues }} />
                 </div>
-            
+
             </div>
         </div>
         ,

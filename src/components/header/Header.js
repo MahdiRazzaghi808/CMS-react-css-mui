@@ -1,10 +1,14 @@
 import React from 'react'
+// style
 import styles from './header.module.css'
-import Divider from '@mui/material/Divider';
-
+// image
 import avatar from "../../asset/images/avatar/photo.jpeg"
+// mui icons
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import SearchIcon from '@mui/icons-material/Search';
+// mui component
+import Divider from '@mui/material/Divider';
+
 function Header() {
   return (
     <>
@@ -16,17 +20,21 @@ function Header() {
 
 
         <div className={styles.headerLeft}>
+          
           <div>
             <SearchIcon />
             <NotificationsIcon />
           </div>
+
           <div className={styles.avatar}>
             <img src={avatar} alt="avatar" />
           </div>
+
         </div>
 
       </div>
-      <Divider sx={{ backgroundColor: 'rgb(49, 58, 85)',marginBottom: '2.5rem'}} />
+
+      <Divider sx={{ backgroundColor: '#e2e8f08f',marginBottom: '2rem'}} />
     </>
 
   )

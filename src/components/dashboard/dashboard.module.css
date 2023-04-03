@@ -1,6 +1,12 @@
 .wrapper{
     padding:0.25rem 0
 }
+
+.wrapper h3{
+    margin-bottom: 2.25rem;
+    color: var(--text-color);
+}
+
 .chart {
     margin-top: 1.5rem;
     display: flex;
@@ -10,11 +16,11 @@
 }
 
 
-.lineChart {
+.lineMain {
     flex-basis: 100%;
 }
 
-.pieChart {
+.pieMain {
     flex-basis: 100%;
     display: flex;
     flex-direction: column;
@@ -22,7 +28,7 @@
 }
 
 @media (min-width:678px) {
-    .pieChart {
+    .pieMain {
         flex-direction: row;
     }
 }
@@ -33,11 +39,11 @@
         gap: 1rem;
     }
 
-    .lineChart {
+    .lineMain {
         flex-basis: 50%;
     }
 
-    .pieChart {
+    .pieMain {
         flex-basis: 50%;
     }
 }
